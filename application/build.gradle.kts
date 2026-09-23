@@ -9,8 +9,16 @@ plugins {
 repositories {
     mavenCentral()
 }
+dependencies {
+    archRules(project(":rules"))
+    implementation("joda-time:joda-time:2.14.4")
+    implementation(project(":library"))
+}
 archRules {
-    failureThreshold("LOW")
+    failureThreshold("HIGH")
     skipPassingSummaries = false
     consoleDetailsThreshold("LOW")
+}
+application {
+    mainClass = "myapp.MyApplication"
 }
