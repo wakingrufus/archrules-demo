@@ -1,0 +1,33 @@
+# action for evaluating archrules on a multi project repo
+name: ArchRules
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+
+jobs:
+  buildmultijdk:
+    runs-on: ubuntu-latest
+    name: ArchRules
+    steps:
+      - uses: actions/checkout@v6
+      - name: Set up JDKs
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version: 21
+          java-package: jdk
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+        with:
+          cache-overwrite-existing: true
+      - name: Gradle run archrules
+        run: ./gradlew archRulesAggregateConsoleReport archRulesAggregateMarkdownReport archRulesGithubReport
+      - name: Arch Rule Reports step summary
+        run: cat build/reports/archrules/report.md > $GITHUB_STEP_SUMMARY
+      - name: PR Comment
+        if: github.event_name == 'pull_request'
+        run: gh pr comment ${{ github.event.number }} --edit-last --create-if-none -b "[ArchRules report](${{ github.server.url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+        env:
+          GH_TOKEN: ${{ github.token }}
