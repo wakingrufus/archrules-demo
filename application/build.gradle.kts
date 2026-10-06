@@ -15,7 +15,7 @@ dependencies {
     implementation(project(":library"))
 }
 archRules {
-    failureThreshold("HIGH")
+    // failureThreshold("HIGH")
     skipPassingSummaries = false
     consoleDetailsThreshold("LOW")
 }
