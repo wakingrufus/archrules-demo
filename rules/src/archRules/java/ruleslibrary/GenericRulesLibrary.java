@@ -8,11 +8,14 @@ import com.tngtech.archunit.lang.syntax.ArchRuleDefinition;
 import java.util.Map;
 
 public class GenericRulesLibrary implements ArchRulesService {
-    private static final ArchRule MY_RULE = ArchRuleDefinition.priority(Priority.MEDIUM)
+    private static final ArchRule MY_RULE =
+            ArchRuleDefinition.priority(Priority.MEDIUM)
             .noClasses()
             .should()
-            .accessClassesThat().resideInAPackage("org.joda.time..")
+            .accessClassesThat()
+                    .resideInAPackage("org.joda.time..")
             .allowEmptyShould(true);
+
     @Override
     public Map<String, ArchRule> getRules() {
         return Map.of("no joda", MY_RULE);
