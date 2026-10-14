@@ -14,10 +14,11 @@ import java.util.concurrent.Executors;
 public class MyLibrary implements Closeable {
     private final MeterRegistry meterRegistry = new SimpleMeterRegistry();
 
-    public ExecutorService fixedThreadPool(String name, int threads){
+    public ExecutorService fixedThreadPool(String name, int threads) {
         new DateTime();
-        final var pool =  Executors.newFixedThreadPool(threads);
-        new ExecutorServiceMetrics(pool, name, Collections.emptyList()).bindTo(meterRegistry);
+        final var pool = Executors.newFixedThreadPool(threads);
+        new ExecutorServiceMetrics(pool, name, Collections.emptyList())
+                .bindTo(meterRegistry);
         return pool;
     }
 
