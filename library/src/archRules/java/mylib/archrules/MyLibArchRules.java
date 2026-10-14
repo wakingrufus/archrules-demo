@@ -8,7 +8,8 @@ import com.tngtech.archunit.lang.syntax.ArchRuleDefinition;
 import java.util.Map;
 
 public class MyLibArchRules implements ArchRulesService {
-    private static final ArchRule USE_INSTRUMENTED_THREAD_POOLS = ArchRuleDefinition.priority(Priority.HIGH)
+    private static final ArchRule USE_INSTRUMENTED_THREAD_POOLS =
+            ArchRuleDefinition.priority(Priority.HIGH)
             .noClasses()
             .that().resideOutsideOfPackage("mylib..")
             .should()
